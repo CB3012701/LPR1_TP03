@@ -108,7 +108,7 @@ public class ConsultaAgendada {
     public static void main(String[] args) {
 
         {
-            ConsultaAgendada p1 = new ConsultaAgendada(8, 50, 30, 23, 7, 2021, "Vitor", "Antonio");
+            ConsultaAgendada p1 = new ConsultaAgendada(8, 50, 30, 23, 7, 2021, "Erica", "Barbosa");
             System.out.println("------------------- P1 -----------------------");
             System.out.println(p1.getData());
             System.out.println(p1.getHora());
