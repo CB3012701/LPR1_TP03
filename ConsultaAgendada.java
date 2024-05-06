@@ -1,3 +1,5 @@
+//Erica Barbosa Pereira Lobo       (CB3012701)
+
 import java.util.Scanner;
 
 public class ConsultaAgendada {
