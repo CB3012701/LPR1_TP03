@@ -1,208 +1,89 @@
 //Erica Barbosa Pereira Lobo       (CB3012701)
 
-package Hora;
-
 import java.util.Scanner;
 
-public class Hora {
-  private int horas;
-  private int minutos;
-  private int segundos;
+public final class Hora {
 
-  private final String hourTemplate = "%s:%s:%s";
-  private Scanner scanner;
+    Scanner ler = new Scanner(System.in);
+    
+    private int hora;
+    private int min;
+    private int seg;
 
-  private String FormatarValor(int value) {
-    String stringifiedValue = "00" + Integer.toString(value);
+    public Hora() {
 
-    return stringifiedValue.substring(stringifiedValue.length() - 2);
-  }
-
-  private void Validar() throws Exception {
-    if (this.horas < 0 || this.horas > 23) {
-      throw new Exception("Valor de Hora Invalida");
     }
 
-    if (this.minutos < 0 || this.minutos > 59) {
-      throw new Exception("Valor de Minutos Invalido");
+    public Hora(int h, int mi, int s) {
+        this.hora = h;
+        this.min = mi;
+        this.seg = s;
+    }
+    
+    public int getHor() {
+        return hora;
     }
 
-    if (this.segundos < 0 || this.segundos > 59) {
-      throw new Exception("Valor de segundos Invalido");
-    }
-  }
-
-  private int HorToMin(int horas) {
-    return horas * 60;
-  }
-
-  private int MinToSec(int minutos) {
-    return minutos * 60;
-  }
-
-  public static boolean HoraValida(int hora) {
-    return hora >= 0 && hora < 24;
-  }
-
-  public static boolean MinutoValido(int minuto) {
-    return minuto >= 0 && minuto < 60;
-  }
-
-  public static boolean SegundoValido(int second) {
-    return second >= 0 && second < 60;
-  }
-
-  public void Validar(int horas, int minutos, int segundos) throws Exception {
-    if (horas < 0 || horas > 23) {
-      throw new Exception("Valor de Hora Invalida");
+    public int getMin() {
+        return min;
     }
 
-    if (minutos < 0 || minutos > 59) {
-      throw new Exception("Valor de Minutos Invalido");
+    public int getSeg() {
+        return seg;
     }
 
-    if (segundos < 0 || segundos > 59) {
-      throw new Exception("Valor de Segundos Invalido");
+    public void setHor(int h) {
+        this.hora = h;
     }
-  }
 
-  public Hora() {
-    this.setHoras();
-    this.setMinutos();
-    this.SetSegundos();
-
-    this.horas = 0;
-    this.minutos = 0;
-    this.segundos = 0;
-  }
-
-  public Hora(int horas, int minutos, int segundos) {
-    this.horas = horas;
-    this.minutos = minutos;
-    this.segundos = segundos;
-
-    try {
-      Validar();
-    } catch (Exception e) {
-      e.printStackTrace();
+    public void setMin(int mi) {
+        this.min = mi;
     }
-  }
 
-  public void setHoras(int horas) {
-    this.horas = horas;
-
-    try {
-      Validar();
-    } catch (Exception e) {
-      e.printStackTrace();
+    public void setSeg(int s) {
+        this.seg = s;
     }
-  }
-
-  public void setMinutos(int minutos) {
-    this.minutos = minutos;
-
-    try {
-      Validar();
-    } catch (Exception e) {
-      e.printStackTrace();
+ 
+    public void setHor() {
+        do {
+            
+            System.out.println("Digite a hora: ");
+            hora = ler.nextInt();
+        } while (hora > 24 || hora < 0);
+       
     }
-  }
 
-  public void setSegundos(int segundos) {
-    this.segundos = segundos;
+    public void setMin() {
+        do {
+            System.out.println("Digite os minutos: ");
+            min = ler.nextInt();
+        } while (min > 60 || min < 0);
 
-    try {
-      Validar();
-    } catch (Exception e) {
-      e.printStackTrace();
     }
-  }
 
-  public void setHoras() {
-    try {
-      this.scanner = new Scanner(System.in);
+    public void setSeg() {
+        do {
+            System.out.println("Digite os segundos: ");
+            seg = ler.nextInt();
+        } while (seg > 60 || seg < 0);
 
-      System.out.print("Insert a valid value for \"hours\": ");
-      this.horas = scanner.nextInt();
-
-      Validar();
-    } catch (Exception e) {
-      e.printStackTrace();
     }
-  }
 
-  public void setMinutos() {
-    try {
-      this.scanner = new Scanner(System.in);
+    public String getHora() {
+        String periodo;
+         if (this.hora < 12) {
+            periodo = "AM";
+        } else {
 
-      System.out.print("Insert a valid value for \"minutes\": ");
-      this.minutos = scanner.nextInt();
-
-      Validar();
-    } catch (Exception e) {
-      e.printStackTrace();
+            periodo = "PM";
+        }
+        String hr1 = (this.hora + ":" + this.min + ":" + this.seg + "(" + periodo + ")");
+        return hr1;
     }
-  }
 
-  public void SetSegundos() {
-    try {
-      this.scanner = new Scanner(System.in);
-
-      System.out.print("Insert a valid value for \"seconds\": ");
-      this.segundos = scanner.nextInt();
-
-      Validar();
-    } catch (Exception e) {
-      e.printStackTrace();
+   public static void main(String[] args)
+    {
+        Hora hora = new Hora ();
+        hora.getHora();
     }
-  }
-
-  public int getHoras() {
-    return this.horas;
-  }
-
-  public int getMinutos() {
-    return this.minutos;
-  }
-
-  public int getSegundos() {
-    return this.segundos;
-  }
-
-  public int toSegundos() {
-    int qntMinutos = 0, qntSegundos = 0;
-
-    qntMinutos += this.minutos + HorToMin(this.horas);
-
-    qntSegundos += this.segundos + MinToSec(qntMinutos);
-
-    return qntSegundos;
-  }
-
-  public String getHoraCompleta() {
-    String HoraCompleta = String.format(
-      this.hourTemplate,
-      FormatarValor(this.horas),
-      FormatarValor(this.minutos),
-      FormatarValor(this.segundos)
-    );
-
-    return HoraCompleta;
-  }
-
-  public String getHoraCompleta(boolean FormatoVinteQuatroHoras) {
-    boolean isPostMeridiem = this.horas - 12 > 0;
-
-    String suffix = isPostMeridiem ? "PM" : "AM";
-
-    String completeHour = String.format(
-      this.hourTemplate + " %s",
-      FormatarValor(isPostMeridiem ? this.horas - 12 : this.horas),
-      FormatarValor(this.minutos),
-      FormatarValor(this.segundos),
-      suffix
-    );
-
-    return completeHour;
-  }
 }
